@@ -1,0 +1,9 @@
+Port 22
+PermitRootLogin no
+PasswordAuthentication yes
+PermitEmptyPasswords no
+
+Match User cuctf
+    ForceCommand /usr/local/bin/ssh_wrapper.sh
+    PermitTTY yes
+    AllowTcpForwarding no

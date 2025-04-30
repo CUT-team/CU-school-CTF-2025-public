@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🐸 Галерея Животных</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<nav>
+    <a href="/">Галерея</a>
+    <a href="/test">Начать тест</a>
+</nav>
+
+<div class="gallery-grid">
+    {% for name, path in animals.items() %}
+    <div class="animal-card">
+        <img src="{{ path }}" alt="{{ name }}">
+        <p>{{ name }}</p>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>

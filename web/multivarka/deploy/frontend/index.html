@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background">
+        <div class="neuro-grid"></div>
+    </div>
+    
+    <div class="container">
+        <header class="header">
+            <h1>Neuro<span>Data</span>Analyzer</h1>
+            <p>Upload your CSV files for advanced processing</p>
+        </header>
+
+        <main>
+            <section class="upload-section card">
+                <h2>Upload CSV File</h2>
+                <form id="uploadForm" class="upload-form">
+                    <div class="file-drop-area" id="dropArea">
+                        <input type="file" id="fileInput" accept=".csv" class="file-input">
+                        <div class="drop-content">
+                            <svg class="upload-icon" viewBox="0 0 24 24">
+                                <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                            </svg>
+                            <p>Drag & drop your CSV file here or click to browse</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="neuro-button">Process File</button>
+                </form>
+                <div id="uploadStatus" class="status-message"></div>
+            </section>
+
+            <section class="job-section card">
+                <h2>Job Status</h2>
+                <div class="job-search">
+                    <input type="text" id="jobIdInput" placeholder="Enter Job ID">
+                    <button id="checkJobBtn" class="neuro-button">Check Status</button>
+                </div>
+                <div id="jobStatus" class="status-display">
+                    <p>Enter a Job ID to check its status</p>
+                </div>
+                <button id="analyzeBtn" class="neuro-button" disabled>Start Analysis</button>
+            </section>
+
+            <section class="results-section card">
+                <h2>Analysis Results</h2>
+                <div id="analysisResults" class="results-display">
+                    <p>Analysis results will appear here</p>
+                </div>
+            </section>
+            <section class="view-table card">
+                <h2>View Table</h2>
+                <div id="viewTable" class="results-display">
+                    <p>Table will appear here</p>
+                </div>
+                <button id="viewTableBtn" class="neuro-button">View Table</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

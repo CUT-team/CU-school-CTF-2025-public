@@ -1,0 +1,9 @@
+services:
+  nextpobeda:
+    build:
+      context: src
+    restart: unless-stopped
+    ports:
+      - "1905:3000"
+    environment:
+      - NODE_ENV=production

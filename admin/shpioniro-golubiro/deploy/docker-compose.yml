@@ -1,0 +1,11 @@
+services:
+  ctf_ssh:
+    build: .
+    ports:
+      - "2222:22"
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M

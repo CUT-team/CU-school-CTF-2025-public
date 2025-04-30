@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:15
+    env_file: .env
+    restart: always
+    networks:
+      - tralalelo-test-net
+    volumes:
+      - tralalelo-test-data:/var/lib/postgresql/data
+  bot:
+    build: .
+    env_file: .env
+    restart: always
+    read_only: true
+    depends_on:
+      - db
+    networks:
+      - tralalelo-test-net
+
+networks:
+  tralalelo-test-net:
+    driver: bridge
+
+volumes:
+  tralalelo-test-data:

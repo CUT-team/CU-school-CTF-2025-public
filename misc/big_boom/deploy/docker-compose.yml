@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    environment:
+      - FLAG=cuctf{h45h_c0ll1s10n_1s_m4g1c_c751a9}
+      - STONES=m1nd,0rb,5p4c3,a3th3r,50ul,p0w3r
+      - PYTHONHASHSEED=0
+    ports:
+      - "31337:31337"
+    restart: always

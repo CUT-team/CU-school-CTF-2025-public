@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Профиль пользователя</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Информация о пользователе</h5>
+        <p><strong>Баланс:</strong> {{ balance }} ₽</p>
+        
+        <form action="{{ url_for('reset') }}" method="post" class="mt-3">
+            <button type="submit" class="btn btn-warning">Сбросить данные</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

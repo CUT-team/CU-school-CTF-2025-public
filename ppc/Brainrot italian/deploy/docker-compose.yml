@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "6015:8000"
+    volumes:
+      - ./sessions:/app/src/sessions
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '3'
+          memory: 4G

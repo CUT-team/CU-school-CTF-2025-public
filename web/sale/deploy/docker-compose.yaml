@@ -1,0 +1,7 @@
+services:
+  sale:
+    build:
+      context: app
+    restart: unless-stopped
+    ports:
+      - "1907:5000"

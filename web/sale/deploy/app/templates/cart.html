@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Корзина</h1>
+
+{% if cart_items %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }} ₽</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Итого</h5>
+            <p>Подытог: {{ subtotal }} ₽</p>
+            
+            {% if applied_promo %}
+                <p>Промокод: {{ applied_promo }} (-{{ discount }} ₽)</p>
+                <p><strong>Итого к оплате: {{ total }} ₽</strong></p>
+                <form action="{{ url_for('clear_promo') }}" method="post" class="mb-2">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">Удалить промокод</button>
+                </form>
+            {% else %}
+                <p><strong>Итого к оплате: {{ total }} ₽</strong></p>
+                <form action="{{ url_for('apply_promo') }}" method="post" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" name="promo_code" class="form-control" placeholder="Введите промокод" required>
+                        <button type="submit" class="btn btn-outline-secondary">Применить</button>
+                    </div>
+                </form>
+            {% endif %}
+            
+            <div class="d-flex justify-content-between">
+                <form action="{{ url_for('clear_cart') }}" method="post">
+                    <button type="submit" class="btn btn-outline-danger">Очистить корзину</button>
+                </form>
+                
+                <form action="{{ url_for('checkout') }}" method="post">
+                    <button type="submit" class="btn btn-success">Оформить заказ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        Ваша корзина пуста. <a href="{{ url_for('index') }}">Перейти к товарам</a>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+    environment:
+      MNEMONIC: "tourist frame critic siren upgrade profit swamp submit goose chase film uncle"
+      ACCOUNT1: "0x41751623c51dd2cd40582459070bd333a9574eec5e4e48fec90d141c2c6e9da9,10000000000000000000000000"
+      ACCOUNT2: "0x9e55ca5ba72cf3840328380cbd57db565c998bc08e863a32390d1b64283eefb7,100000000000000000000"
+      RPC_PORT: "8545"
+    ports:
+      - "8545:8545"
+    volumes:
+      - ./build-files:/app/build-files

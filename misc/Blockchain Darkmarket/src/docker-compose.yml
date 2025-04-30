@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  deployer:
+    build:
+      context: ./deployer
+    environment:
+      - RPC_URL=http://ganache:8545
+    env_file:
+      - .env
+    depends_on:
+      - ganache
+    volumes:
+      - ./build:/app/build
+    ports:
+      - "3000:3000"
+    entrypoint: ["sh", "-c", "while ! nc -z ganache 8545; do sleep 1; done; node deploy.js"]
+
+  ganache:
+    image: trufflesuite/ganache
+    ports:
+      - "8545:8545"
+    command: [
+      "--mnemonic", "${MNEMONIC}", 
+      "--account", "${ACCOUNT1}",
+      "--account", "${ACCOUNT2}",
+      "--account", "${ACCOUNT3}",
+      "--account", "${ACCOUNT4}",
+      "--account", "${ACCOUNT5}",
+      "--account", "${ACCOUNT6}",
+      "--account", "${ACCOUNT7}",
+      ]

@@ -1,0 +1,75 @@
+services:
+  app:
+    container_name: multivarka-revenge-app
+    build: .
+    # ports:
+    #   - "3000:3000"
+    networks:
+      multivarka_revenge_net:
+        ipv4_address: 172.16.0.2
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - clickhouse
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+
+  db:
+    container_name: multivarka-revenge-postgres
+    image: postgres:15
+    # ports:
+    #   - "5432:5432"
+    networks:
+      multivarka_revenge_net:
+        ipv4_address: 172.16.0.3
+    env_file:
+      - .env
+    volumes:
+      - multivarka_revenge_pgdata:/var/lib/postgresql/data
+    restart: always
+
+  clickhouse:
+    container_name: multivarka-revenge-clickhouse
+    image: yandex/clickhouse-server
+    volumes:
+      - multivarka_revenge_clickhousedata:/var/lib/clickhouse
+    networks:
+      multivarka_revenge_net:
+        ipv4_address: 172.16.0.4
+    env_file:
+      - .env
+    # ports:
+    #   - "9000:9000"
+    restart: always
+  frontend:
+    container_name: multivarka-revenge-frontend
+    image: nginx:latest
+    ports:
+      - "9854:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend:/usr/share/nginx/html
+      - ./flag.txt:/flag.txt:ro
+    depends_on:
+      - app
+    networks:
+      multivarka_revenge_net:
+        ipv4_address: 172.16.0.5
+    restart: always
+
+volumes:
+  multivarka_revenge_pgdata:
+  multivarka_revenge_clickhousedata:
+
+networks:
+  multivarka_revenge_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/16
+          gateway: 172.16.0.1

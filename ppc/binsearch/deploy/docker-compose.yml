@@ -1,0 +1,15 @@
+services:
+    backend:
+        build:
+            context: backend
+        environment:
+            - FLAG=cuctf{gu3ss3d_by_n3ur0n3t}
+        ports:
+            - "7882:8080"
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    cpus: '2'
+                    memory: 2G
+

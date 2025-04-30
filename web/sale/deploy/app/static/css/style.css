@@ -1,0 +1,8 @@
+.card-img-top {
+    height: 150px;
+    object-fit: cover;
+}
+
+.navbar-text {
+    margin-left: 20px;
+}

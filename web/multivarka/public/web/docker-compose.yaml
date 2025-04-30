@@ -1,0 +1,58 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    networks:
+      - multivarka_net
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - clickhouse
+    restart: always
+
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    networks:
+      - multivarka_net
+    env_file:
+      - .env
+    # volumes:
+    #   - multivarka_pgdata:/var/lib/postgresql/data
+    restart: always
+
+  clickhouse:
+    image: yandex/clickhouse-server
+    # volumes:
+    #   - multivarka_clickhousedata:/var/lib/clickhouse
+    networks:
+      - multivarka_net
+    env_file:
+      - .env
+    ports:
+      - "9000:9000"
+    restart: always
+  frontend:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend:/usr/share/nginx/html
+      - ./flag.txt:/flag.txt:ro
+    depends_on:
+      - app
+    networks:
+      - multivarka_net
+    restart: always
+
+volumes:
+  multivarka_pgdata:
+  multivarka_clickhousedata:
+
+networks:
+  multivarka_net:
+    driver: bridge

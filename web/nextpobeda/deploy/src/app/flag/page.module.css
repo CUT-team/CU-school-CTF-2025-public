@@ -1,0 +1,323 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #0a0a1a;
+    color: #00ff00;
+    padding: 2rem;
+    overflow: hidden;
+    position: relative;
+    font-family: "VT323", "Courier New", monospace;
+}
+
+.container[data-glitch-level="10"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            rgba(255, 0, 0, 0.1),
+            rgba(0, 255, 0, 0.1),
+            rgba(0, 0, 255, 0.1)
+    );
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.static {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8c/t0YLMMpuiLgGOwZAoGRJBMY7o');
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+            to bottom,
+            transparent 50%,
+            rgba(0, 0, 0, 0.3) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.title {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #ff00ff;
+    text-shadow: 3px 3px 0 #00ffff, -3px -3px 0 #ff0000;
+    animation: textGlitch 1.5s infinite;
+    position: relative;
+    z-index: 5;
+}
+
+@keyframes textGlitch {
+    0% {
+        text-shadow: 3px 3px 0 #00ffff, -3px -3px 0 #ff0000;
+    }
+    25% {
+        text-shadow: -3px 3px 0 #00ffff, 3px -3px 0 #ff0000;
+    }
+    50% {
+        text-shadow: 3px -3px 0 #00ffff, -3px 3px 0 #ff0000;
+    }
+    75% {
+        text-shadow: -3px -3px 0 #00ffff, 3px 3px 0 #ff0000;
+    }
+    100% {
+        text-shadow: 3px 3px 0 #00ffff, -3px -3px 0 #ff0000;
+    }
+}
+
+.glitch {
+    position: relative;
+    animation: glitchText 0.3s infinite;
+    color: #ff9900;
+}
+
+@keyframes glitchText {
+    0% {
+        left: 0;
+    }
+    25% {
+        left: 2px;
+        top: 1px;
+    }
+    50% {
+        left: -1px;
+        top: -2px;
+    }
+    75% {
+        left: 1px;
+        top: -1px;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+.warningBox {
+    background-color: #330000;
+    border: 2px solid #ff0000;
+    width: 80%;
+    max-width: 700px;
+    margin: 20px 0;
+    z-index: 5;
+}
+
+.warningHeader {
+    background-color: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.warningContent {
+    padding: 15px;
+    text-align: center;
+    color: #ff0000;
+    font-size: 1.3rem;
+}
+
+.loadingBar {
+    margin-top: 10px;
+    height: 20px;
+    background-color: #000000;
+    border: 1px solid #ff0000;
+}
+
+.loadingProgress {
+    height: 100%;
+    background: linear-gradient(to right, #ff0000, #ffaa00);
+    transition: width 0.5s ease;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+    z-index: 5;
+}
+
+.loadingText {
+    font-size: 1.8rem;
+    color: #ffff00;
+    margin-bottom: 20px;
+    animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}
+
+.spinner {
+    width: 80px;
+    height: 80px;
+    border: 8px solid transparent;
+    border-top: 8px solid #ff00ff;
+    border-bottom: 8px solid #00ffff;
+    border-radius: 50%;
+    transition: transform 0.5s ease;
+}
+
+.flagContainer {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    margin: 2rem 0;
+    z-index: 5;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🔥</text></svg>") 16 0, pointer;
+}
+
+.secretBox {
+    background-color: #001500;
+    border: 3px double #00ff00;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+.secretHeader {
+    text-align: center;
+    font-size: 1.4rem;
+    color: #00ff00;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #00ff00;
+    padding-bottom: 10px;
+}
+
+.flag {
+    font-family: monospace;
+    font-size: 1.8rem;
+    color: #00ff00;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    word-break: break-all;
+    text-align: center;
+    animation: colorPulse 3s infinite;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+@keyframes colorPulse {
+    0% {
+        color: #00ff00;
+    }
+    25% {
+        color: #ffff00;
+    }
+    50% {
+        color: #00ffff;
+    }
+    75% {
+        color: #ff00ff;
+    }
+    100% {
+        color: #00ff00;
+    }
+}
+
+.dizzyCube {
+    perspective: 800px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    bottom: -50px;
+    right: -20px;
+}
+
+.cubeFace {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 0, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #ffffff;
+    text-shadow: 0 0 10px #ffffff;
+    border: 2px solid #00ffff;
+    transition: transform 0.1s ease;
+}
+
+.terminalOutput {
+    font-family: 'Courier New', monospace;
+    background-color: #000000;
+    border: 1px solid #00ff00;
+    width: 80%;
+    max-width: 700px;
+    padding: 15px;
+    margin-top: 2rem;
+    color: #00ff00;
+    font-size: 1.1rem;
+    z-index: 5;
+}
+
+.terminalOutput div {
+    margin: 5px 0;
+}
+
+.blinkText {
+    animation: blinkTerminal 1s infinite;
+}
+
+@keyframes blinkTerminal {
+    0% {
+        opacity: 0;
+    }
+    49% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .flag {
+        font-size: 1.4rem;
+    }
+
+    .warningBox, .terminalOutput {
+        width: 95%;
+    }
+
+    .dizzyCube {
+        display: none;
+    }
+}

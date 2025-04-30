@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  snow_crypto:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "7007:7007"
+    environment:
+      - FLAG=cuctf{1h3y_eNcr7pt3d_m3_1n_FL4G!}
+    restart: always
