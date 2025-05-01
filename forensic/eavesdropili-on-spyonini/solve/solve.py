@@ -46,19 +46,8 @@ def extract_amr(pcap_file, target_ssrc):
                     amr_payload_header = payload[12]
                     frame_type = amr_payload_header & 0x0F
                     
-                    # print(frame_type)
-                    # AMR-NB frame sizes
-                    # frame_sizes = [12, 13, 15, 17, 19, 20, 26, 31, 5, 0, 0, 0, 0, 0, 0, 0]
-                    # frame_size = frame_type if frame_type in frame_sizes else 0
-                    # print(pkt_ssrc)
-                    # print(payload)
-                    # print()
-                    # print(payload)
-                    # if frame_size > 0 and len(payload) >= 13 + frame_size:
+                    
                     if  len(payload) >= 13:
-
-                        # original_frame_header = (frame_type << 3) | 4  # F=0, Q=1
-                        # amr_frame = bytes([original_frame_header]) + payload[12:13+frame_size]
                         amr_frame =  payload[12:]
                         amr_frames.append(amr_frame)
     
@@ -68,8 +57,8 @@ def extract_amr(pcap_file, target_ssrc):
 target_ssrc_1 = 0x13376060
 target_ssrc_2 = 0x9017b177
 
-victim_frames_1 = extract_amr('test.pcap', target_ssrc=target_ssrc_1)
-victim_frames_2 = extract_amr('test.pcap', target_ssrc=target_ssrc_2)
+victim_frames_1 = extract_amr('sniffed.pcap', target_ssrc=target_ssrc_1)
+victim_frames_2 = extract_amr('sniffed.pcap', target_ssrc=target_ssrc_2)
 
 orig_frames = read_amr_file('file-wav/victim-call-2.amr')
 
